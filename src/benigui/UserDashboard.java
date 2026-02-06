@@ -22,6 +22,7 @@ public class UserDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel6 = new javax.swing.JLabel();
         lblRatingDisplay = new javax.swing.JLabel();
         BReco = new javax.swing.JLabel();
         logoutbttn = new javax.swing.JPanel();
@@ -42,6 +43,12 @@ public class UserDashboard extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(880, 610));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 16)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(153, 153, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Rate (1-10)");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(681, 400, 130, -1));
         getContentPane().add(lblRatingDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 380, 380, -1));
 
         BReco.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 16)); // NOI18N
@@ -81,10 +88,12 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addGap(0, 4, Short.MAX_VALUE))
         );
 
-        getContentPane().add(logoutbttn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 440, 380, 40));
+        getContentPane().add(logoutbttn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 460, 380, 40));
 
+        jLabel2.setFont(new java.awt.Font("Copperplate Gothic Bold", 0, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 255));
         jLabel2.setText("Search:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, -1, -1));
 
         txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -101,7 +110,7 @@ public class UserDashboard extends javax.swing.JFrame {
                 txtSearchKeyReleased(evt);
             }
         });
-        getContentPane().add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, 380, -1));
+        getContentPane().add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 380, -1));
 
         tblBooks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -116,7 +125,7 @@ public class UserDashboard extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblBooks);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, 380, 190));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 380, 190));
 
         tblRecs.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tblRecs.setModel(new javax.swing.table.DefaultTableModel(
@@ -157,7 +166,7 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel4.setText("Clear");
         clearSearchBttn.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 0, 110, 30));
 
-        getContentPane().add(clearSearchBttn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, 110, 30));
+        getContentPane().add(clearSearchBttn, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, 110, 30));
 
         btnSubmitRating.setBackground(new java.awt.Color(153, 153, 255));
         btnSubmitRating.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -176,7 +185,7 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel3.setText("Submit");
         btnSubmitRating.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 0, 110, 30));
 
-        getContentPane().add(btnSubmitRating, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 400, 110, 30));
+        getContentPane().add(btnSubmitRating, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 420, 110, 30));
 
         comboRating.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         comboRating.addActionListener(new java.awt.event.ActionListener() {
@@ -184,7 +193,7 @@ public class UserDashboard extends javax.swing.JFrame {
                 comboRatingActionPerformed(evt);
             }
         });
-        getContentPane().add(comboRating, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 400, 130, 30));
+        getContentPane().add(comboRating, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 420, 130, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageFiles/User.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, -1));
@@ -390,6 +399,7 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblRatingDisplay;
