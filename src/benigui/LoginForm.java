@@ -112,35 +112,40 @@ System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    String user = jTextField1.getText().trim(); // Your username field
-    String pass = new String(jPasswordField1.getPassword()); // Your password field
+String user = jTextField1.getText().trim();
+    String pass = new String(jPasswordField1.getPassword());
 
-    // 1. Validation: Don't even hit the DB if fields are empty
     if (user.isEmpty() || pass.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Please enter both Username and Password");
+        JOptionPane.showMessageDialog(this, "Please enter both Username and Password");
         return;
     }
 
-    // 2. Check credentials and get the role from your BeniGUI helper
-    String role = BeniGUI.validateLoginWithRole(user, pass);
+    // 1. You MUST include 'email' in the SELECT statement
+    String sql = "SELECT username, email, role FROM users WHERE username = ? AND password = ?";
 
-    if (role != null) {
-        // 3. Success! Show a message and redirect
-        javax.swing.JOptionPane.showMessageDialog(this, "Login Successful! Welcome " + user);
+    try (java.sql.Connection con = BeniGUI.connectDB();
+         java.sql.PreparedStatement pst = con.prepareStatement(sql)) {
         
-        if (role.equalsIgnoreCase("Admin")) {
-            new AdminDashboard().setVisible(true);
+        pst.setString(1, user);
+        pst.setString(2, pass);
+        java.sql.ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            // 2. Fetch the actual email from the database column
+            String dbUser = rs.getString("username");
+            String dbEmail = rs.getString("email");
+            String dbRole = rs.getString("role");
+
+            // 3. PASS THE ACTUAL DATA to the dashboard
+            new UserProfileDashboard(dbUser, dbEmail, dbRole).setVisible(true);
+            this.dispose();
+            
         } else {
-            new UserDashboard().setVisible(true);
+            JOptionPane.showMessageDialog(this, "Invalid credentials!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        // 4. Close the Login form
-        this.dispose();
-    } else {
-        // 5. Failure
-        javax.swing.JOptionPane.showMessageDialog(this, "Invalid Username or Password!", "Login Failed", javax.swing.JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage());
     }
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

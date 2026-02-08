@@ -7,15 +7,25 @@ import java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;
 
 
-public class UserDashboard extends javax.swing.JFrame {
+public final class UserDashboard extends javax.swing.JFrame {
 
 
-    public UserDashboard() {
+   // These variables allow the dashboard to "remember" who logged in
+    String name, email, role;
+
+    public UserDashboard(String name, String email, String role) {
         initComponents();
-        // Hide the ScrollPane (this hides the table and its headers)
-         jScrollPane1.setVisible(false);
-        loadRecommendations();
-        loadBooks();           // Loads the full list
+        this.name = name;
+        this.email = email;
+        this.role = role;
+        
+        // Your existing method to load the database table
+        loadBooks(); 
+    }
+    
+    // You also need an empty constructor to prevent errors in the main method
+    public UserDashboard() {
+        initComponents();          // Loads the full list
     }
 
     @SuppressWarnings("unchecked")

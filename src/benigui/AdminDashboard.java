@@ -5,14 +5,26 @@ import net.proteanit.sql.DbUtils;
 
 public class AdminDashboard extends javax.swing.JFrame {
 
-    
-    
+    // 1. ADD THESE VARIABLES AT THE TOP
+    private String name, email, role;
 
-public AdminDashboard() {
-        initComponents(); // This is already there (it builds the UI)
-        loadBooks();      // <--- PASTE IT HERE: This runs right after the UI is built
-    
-}
+    // 2. PASTE THIS: The constructor that receives info from the Profile Dashboard
+    public AdminDashboard(String name, String email, String role) {
+        initComponents();
+        this.name = name;
+        this.email = email;
+        this.role = role;
+        
+        loadBooks(); // This is already in your code, keep it here
+        this.setLocationRelativeTo(null);
+    }
+
+    // 3. KEEP THIS: The default constructor (the one you already have)
+    public AdminDashboard() {
+        initComponents();
+        loadBooks();
+        this.setLocationRelativeTo(null);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -24,9 +24,9 @@ public class RegistrationForm extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
+        txtEmail = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField2 = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -69,6 +69,7 @@ public class RegistrationForm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 310, 190, -1));
+        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 360, 190, -1));
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -77,9 +78,8 @@ public class RegistrationForm extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("CONFIRM PASSWORD:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 360, -1, 20));
-        jPanel1.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 360, 190, -1));
+        jLabel3.setText("EMAIL ADDRESS:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, -1, 20));
 
         jButton2.setText("EXIT");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -118,45 +118,38 @@ public class RegistrationForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JRegisterBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRegisterBttnActionPerformed
-String username = jTextField1.getText().trim();
+// 1. Get the inputs
+    String username = jTextField1.getText().trim();
     String password = new String(jPasswordField1.getPassword());
-    String confirm = new String(jPasswordField2.getPassword());
+    String email = txtEmail.getText().trim(); 
     String selectedRole = comboRole.getSelectedItem().toString();
 
-    // 1. Validation: Ensure no empty fields and matching passwords
-    if (username.isEmpty() || password.isEmpty() || selectedRole.trim().isEmpty()) {
+    // 2. Simple Validation: Just check if they are empty
+    if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
         JOptionPane.showMessageDialog(this, "All fields are required!");
         return;
     }
 
-    if (!password.equals(confirm)) {
-        JOptionPane.showMessageDialog(this, "Passwords do not match!");
-        return;
-    }
+    // 3. Database Operation (Same as before)
+    String sql = "INSERT INTO users (username, password, role, email) VALUES (?, ?, ?, ?)";
 
-    // 2. Single Database Operation
-    String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
-
-    try (Connection con = BeniGUI.connectDB(); // Uses your SQLite connection
+    try (Connection con = BeniGUI.connectDB(); 
          PreparedStatement pst = con.prepareStatement(sql)) {
         
         pst.setString(1, username);
         pst.setString(2, password);
         pst.setString(3, selectedRole);
+        pst.setString(4, email);
         
         pst.executeUpdate();
         
-        JOptionPane.showMessageDialog(this, "Registration Successful! You can now log in.");
-        
-        // 3. Switch to Login Screen
+        JOptionPane.showMessageDialog(this, "Registration Successful!");
         new LoginForm().setVisible(true);
         this.dispose();
 
     } catch (SQLException e) {
-        // If username is a PRIMARY KEY, this catches duplicates
-        JOptionPane.showMessageDialog(this, "Error: Username might already be taken.\n" + e.getMessage());
-    }
-
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+    }  
     }//GEN-LAST:event_JRegisterBttnActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -194,7 +187,7 @@ String username = jTextField1.getText().trim();
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
 }
